@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { httpGetUsers, httpPostUsers } from "../controllers/user.controller";
+import { httpGetUsers, httpPostUsers, httpLogin } from "../controllers/user.controller";
 
 const UserRouter = Router();
 
-UserRouter.get('/', httpGetUsers);
-UserRouter.post('/', httpPostUsers);
+UserRouter.get('/users', httpGetUsers);
+UserRouter.post('/users', httpPostUsers);
+UserRouter.post('/login', httpLogin);
 
 export default UserRouter;

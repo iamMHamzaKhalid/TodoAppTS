@@ -4,7 +4,7 @@ import TodoRouter from "./todo.router";
 
 const registerRoutes = (app: Express) => {
     // app.use("/api");
-    app.use("/api/users", UserRouter);
+    app.use("/api", UserRouter);
     app.use("/api/todos", TodoRouter);
 
 };

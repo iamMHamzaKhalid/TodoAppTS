@@ -1,35 +1,41 @@
 
 import { Request, Response } from 'express';
 import { getTodos, postTodo, updateTodo, deleteTodo } from '../database/database';
+import mongoose from 'mongoose';
 // import isAuthenticated from '../middleware/authMiddleware';
 const httpGetTodo = async (req: Request, res: Response) => {
-    return res.status(200).json(await getTodos());
+    if (!req.userId) {
+        return res.status(401).json({ error: 'User ID not found in session' });
+    }
+    const todos = await getTodos(req.userId);
+    return res.status(200).json(todos);
 }
-const httpPostTodo = async (req: Request, res: Response,) => {
-    const todo = req.body;
-    // const userId = req.session.userId; // Access user ID from the session
 
-    if (!todo.userId || !todo.name || !todo.description) {
+const httpPostTodo = async (req: Request, res: Response) => {
+    if (!req.userId) {
+        return res.status(401).json({ error: 'User ID not found in session' });
+    }
+    const todo = req.body;
+
+    if (!todo.name || !todo.description) {
         return res.status(400).json({
             error: "Bad Request! Missing name or description"
         });
-    }
-    else {
-        const result = await postTodo(todo);
+    } else {
+        const result = await postTodo(todo, req.userId);
         if (result) {
             res.status(200).json({
                 response: "Todo Posted by user successfully",
-                user: todo.userId
-            })
-        }
-        else {
+                user: req.userId
+            });
+        } else {
             res.status(400).json({
                 response: "Not Posted due to unexpected error"
-            })
+            });
         }
     }
-
 }
+
 const httpDeleteTodo = async (req: Request, res: Response) => {
     const deleteId: string = req.params.id;
     if (!deleteId) {

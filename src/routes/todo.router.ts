@@ -1,7 +1,11 @@
 import { Router } from "express";
 import { httpGetTodo, httpPostTodo, httpDeleteTodo, httpUpdateTodo } from "../controllers/todo.controller";
+import sessionMiddleware from '../middleware/sessionmiddleware';
 
 const TodoRouter = Router();
+
+
+TodoRouter.use(sessionMiddleware);  // Apply
 
 
 TodoRouter.get('/', httpGetTodo);
