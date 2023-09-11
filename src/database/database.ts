@@ -91,14 +91,14 @@ const updateTodo = async (id: string, updatedTodo: ITodo) => {
 };
 
 // Delete a todo by ID
-const deleteTodo = async (id: number): Promise<boolean> => {
+const deleteTodo = async (id: string) => {
     try {
         const deleted = await TodoDatabase.findByIdAndDelete(id);
         if (!deleted) {
             throw new Error('Todo not found');
-            return false
+
         }
-        return true;
+        return deleted;
     } catch (error) {
         console.error(`Could not delete todo: ${error}`);
         throw error;

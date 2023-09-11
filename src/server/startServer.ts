@@ -12,7 +12,7 @@ import { logs } from '../middleware/logs';
 // import { isAuthenticated } from '../middleware/authMiddleware'
 
 dotenv.config();
-const MongoStore = connectMongo(session);
+// const MongoStore = connectMongo(session);
 
 const SERVER_PORT: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 6000;
 const MONGODB_URI: string | undefined = process.env.MONGODB_URI;
@@ -29,16 +29,16 @@ const startServer = async () => {
 
         const app: Express = express();
         // Initialize Passport and session middleware
-        passportConfig(passport);
-        app.use(session({
-            secret: 'your-secret-key', // Change this to a strong and secure secret
-            resave: false,
-            saveUninitialized: true,
-            store: new MongoStore({ mongooseConnection: mongoose.connection }),
-        }));
+        // passportConfig(passport);
+        // app.use(session({
+        //     secret: 'your-secret-key', // Change this to a strong and secure secret
+        //     resave: false,
+        //     saveUninitialized: false,
+        //     store: new MongoStore({ mongooseConnection: mongoose.connection }),
+        // }));
 
-        app.use(passport.initialize());
-        app.use(passport.session());
+        // app.use(passport.initialize());
+        // app.use(passport.session());
         // app.use(isAuthenticated);
         // app.use(morgan('combined'));
         app.use(morgan('dev'));
