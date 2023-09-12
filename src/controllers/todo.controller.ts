@@ -1,8 +1,7 @@
 
 import { Request, Response } from 'express';
 import { getTodos, postTodo, updateTodo, deleteTodo } from '../database/database';
-import mongoose from 'mongoose';
-// import isAuthenticated from '../middleware/authMiddleware';
+
 const httpGetTodo = async (req: Request, res: Response) => {
     if (!req.userId) {
         return res.status(401).json({ error: 'User ID not found in session' });
