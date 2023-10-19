@@ -1,6 +1,7 @@
 
 import { Request, Response } from 'express';
 import { getTodos, postTodo, updateTodo, deleteTodo } from '../database/database';
+import { ITodo } from '../models/todo.model';
 
 const httpGetTodo = async (req: Request, res: Response) => {
     if (!req.userId) {
@@ -14,7 +15,7 @@ const httpPostTodo = async (req: Request, res: Response) => {
     if (!req.userId) {
         return res.status(401).json({ error: 'User ID not found in session' });
     }
-    const todo = req.body;
+    const todo = req.body as ITodo;
 
     if (!todo.name || !todo.description) {
         return res.status(400).json({
@@ -63,7 +64,7 @@ const httpDeleteTodo = async (req: Request, res: Response) => {
 }
 const httpUpdateTodo = async (req: Request, res: Response) => {
     const updateId: string = req.params.id;
-    const updatedTodo = req.body;
+    const updatedTodo = req.body as ITodo;
 
     if (!updatedTodo.name || !updatedTodo.description) {
         return res.status(400).json({

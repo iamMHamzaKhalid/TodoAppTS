@@ -23,7 +23,7 @@ const sessionMiddleware = async (req: express.Request, res: express.Response, ne
 
     // Attach the userId to the request object
     req.userId = session.userId;
-
+    // res.locals.userId = session.userId;
     next();
 };
 

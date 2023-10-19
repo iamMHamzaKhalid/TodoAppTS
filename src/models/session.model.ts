@@ -14,7 +14,7 @@ const SessionSchema: Schema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        expires: 3600, // This will make MongoDB automatically remove sessions older than 1 hour.
+        expires: 3600, 
     }
 });
 
